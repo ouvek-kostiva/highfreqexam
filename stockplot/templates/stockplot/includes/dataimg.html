@@ -1,0 +1,55 @@
+{% block content %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% include "stockplot/includes/noscript.html"%}
+
+<div class="row">
+    <div class="col-xs-2">
+    </div>
+    <div class="col-xs-8">
+        <div id="chart"></div>
+    </div>
+    <div class="col-xs-2">
+    </div>
+</div>
+
+<script>
+    var trace1 = {
+      x: [{% for i in dates %}'{{ i }}'{% if not forloop.last %},{% endif %}{% endfor %}],
+      close: [{% for i in prices %}{{ i.close }}{% if not forloop.last %},{% endif %}{% endfor %}], 
+      decreasing: {line: {color: '#228B22'}}, 
+      high: [{% for i in prices %}{{ i.high }}{% if not forloop.last %},{% endif %}{% endfor %}], 
+      increasing: {line: {color: '#FF6347'}}, 
+      line: {color: '#FFFFFF'}, 
+      low: [{% for i in prices %}{{ i.low }}{% if not forloop.last %},{% endif %}{% endfor %}], 
+      open: [{% for i in prices %}{{ i.open }}{% if not forloop.last %},{% endif %}{% endfor %}], 
+      type: 'candlestick', 
+      xaxis: 'x', 
+      yaxis: 'y'
+    };
+    var data = [trace1];
+    var layout = {
+      dragmode: 'zoom', 
+      margin: {
+        r: 10, 
+        t: 25, 
+        b: 40, 
+        l: 60
+      }, 
+      showlegend: false, 
+      xaxis: {
+        autorange: true, 
+        title: 'Date', 
+        type: 'date',
+        rangeslider: {range: ['{{ dates.0 }}', '{{ dates|last }}']}, 
+      }, 
+      yaxis: {
+        autorange: true, 
+        type: 'linear'
+      }
+    };
+
+
+	TESTER = document.getElementById('chart');
+	Plotly.plot(TESTER, data, layout);
+</script>
+{% endblock %}

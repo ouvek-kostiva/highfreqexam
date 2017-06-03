@@ -1,0 +1,28 @@
+{% block content %}
+    <form action="" method="get">
+        {% csrf_token %}
+        <div class="form-group row">
+        <div class="col-xs-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">股票代號</span>
+                {{ form.codeid }}
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit">更新</button>
+                </span>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">開始日</span>
+                {{ form.startdate }}
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">結束日</span>
+                 {{ form.enddate }}
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}
